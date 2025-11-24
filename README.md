@@ -54,6 +54,9 @@ For the full presentation slidedeck, see the attached materials in this reposito
 ---
 
 **Course:** COS 457 – Database Systems  
+
 **Professor:** Dr. Behrooz Mansouri
+
 **Institution:** University of Southern Maine  
+
 **Date:** November 2025
