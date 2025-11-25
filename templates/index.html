@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="ascii-box">
+<img src="{{ url_for('static', filename='images/the gates.png') }}" alt="The Architect's Gate" style="width: 300px; height: auto;">
+<br>
+<img src="{{ url_for('static', filename='images/gate.png') }}" alt="The Architect's Gate" style="width: 300px; height: auto;">
+</div>
+
+
+<br>
+
+<p id="intro" class="typing"></p>
+
+<script>
+typeText(
+    "intro",
+    [
+        "Rumor says an ancient admin, known only as The Architect,",
+        "left untold secrets buried deep",
+        "within this forgotten server.",
+        "These are the blueprints of the old web, and they hold immense",
+        "power. To even begin the quest, you must breach the gates",
+        "Your first task:",
+        "➤ Bypass the LOGIN page."
+    ]
+);
+</script>
+
+<p><a href="/login">Start Mission</a></p>
+
+{% endblock %}

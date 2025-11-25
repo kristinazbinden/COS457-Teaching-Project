@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>LEVEL 3 — Blind SQL Injection</h2>
+
+<div class="ascii-box">
+    <img src="{{ url_for('static', filename='images/Oracle.png') }}" alt="Oracle" style="width: 600px; height: auto;">
+    <br>
+    <b>The Oracle sees only truth or lies.<br>
+    Upon a dais sits the Oracle itself—a vast engine of forgotten truth, humming with power. It is protected by a shimmering veil of arcane energy, impenetrable to all but the most subtle sensing. 
+    The true secrets are not yielded to sight. Unless you ask <br>⬇</b>
+    <br>
+</div>
+
+<form method="GET" action="/blind" style="margin-top:15px;">
+    <label>Oracle Input:</label><br>
+    <input name="id"
+            value="{{ request.args.get('id', '') }}"
+            style="width: 320px; padding:5px;" class="input-spell">
+            <br><br><br>
+    <button type="submit" class="btn-cast">Probe the Oracle</button>
+</form>
+
+{% if result %}
+<hr>
+<h3>The Oracle’s Response:</h3>
+<div class="ascii-box">
+    {{ result|safe }}
+</div>
+{% endif %}
+
+{% if dangerous %}
+    {% if already_claimed %}
+        <hr>
+        <div class="ascii-box" style="color:#f88;">
+            <strong>The Oracle whispers:</strong><br>
+            “You have already taken what this chamber guards.”  
+        </div>
+    {% else %}
+        <hr>
+        <div class="ascii-box" style="color:#0f0;">
+            <strong>Secret Word Earned:</strong> {{ last_word }}<br><br>
+            “Another fragment of the ancient phrase reveals itself…”
+        </div>
+    {% endif %}
+{% endif %}
+
+<hr>
+<p style="margin-top:20px;">
+    <a href="/columns">▶ Level 4: Column Depth Chamber</a>
+</p>
+
+{% endblock %}

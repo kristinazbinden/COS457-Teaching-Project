@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>LEVEL 2 — Search Injection</h2>
+
+<div class="ascii-box">
+    <img src="{{ url_for('static', filename='images/marketplace.png') }}" alt="Great Bazaar" style="width: 300px; height: auto;">
+    <br>
+
+    Before you lies the Great Bazaar of the Archives, sprawling and vast. Yet, know this, traveler: The wares you seek are not sold openly, nor found by casual glance. Only the Whispers of the Forbidden Tongue shall awaken its deepest, most perilous secrets.
+     ˋ°•*⁀➷ ˋ°•*⁀➷ ˋ°•*⁀➷ ˋ°•*⁀➷ ˋ°•*⁀➷ ˋ°•*⁀➷ ˋ°•*⁀➷ 
+     <br>
+     ↓
+</div>
+
+<form method="GET" action="/search">
+    <p>Search term:</p>
+    <input name="s" value="{{ term }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if error %}
+<p style="color:red;">SQL Error: {{ error }}</p>
+{% endif %}
+
+{% if term %}
+<hr>
+
+<h3>Market Response:</h3>
+
+{% if results %}
+    {% for row in results %}
+        <div>[{{ row.id }}] {{ row.name }} — {{ row.description }}</div>
+    {% endfor %}
+{% else %}
+
+    <div class="ascii-box" style="color:#ff6;">
+    {% if dangerous %}
+        <strong>You have disturbed the marketplace…</strong><br>
+        Vain effort, mortal! Your injection rings hollow. The secrets of this market yield only to a UNION, SELECT query forged with perfect knowledge. Be gone, and hone your UNION query!<br><br>
+
+        <img src="{{ url_for('static', filename='images/android.png') }}" alt="The Architect's Gate" style="width: 150px; height: auto;">
+         <br>
+
+        <em>“The gatekeeper whispers:”</em><br>
+        <span style="color:#0f0;">
+            “Try again, wanderer. True UNION magic is needed  
+            if you want me to surrender my knowledge.”
+        </span>
+    {% else %}
+        <img src="{{ url_for('static', filename='images/error.png') }}" alt="The Architect's Gate" style="width: 290px; height: auto;">
+        <br>
+        (What is that? Brother ewww! That which you seek cannot be found here! Be gone!)
+    {% endif %}
+    </div>
+
+{% endif %}
+{% endif %}
+
+{% if dangerous %}
+<hr>
+
+{# ----------------------------------------------- #}
+{# If the secret word was already taken #}
+{# ----------------------------------------------- #}
+
+{% if already_claimed %}
+<div class="ascii-box" style="color:#f88;">
+    <strong>The chamber echoes faintly…</strong><br>
+    “You have already extracted the secret hidden here.<br>
+    This place has nothing more to offer you. Away with you, quench your GREED!”  
+</div>
+
+<p style="color:#0f0; margin-top:15px;">
+    You may <a href="/clue2">proceed to Clue #2</a> when ready.
+</p>
+
+{% else %}
+
+{# EXISTING BLOCK → Secret Word is available #}
+
+{% if session.last_secret_word %}
+<div class="ascii-box">
+    <strong>Secret Word Earned:</strong> {{ session.last_secret_word }}<br><br>
+
+    <span style="color:#0f0;">
+        “A fragment of the ancient sentence has been revealed…  
+        Guard it well.”
+    </span>
+</div>
+{% endif %}
+
+<p style="color:#0f0; margin-top:15px;">
+    You may <a href="/clue2">proceed to Clue #2</a>…<br>
+    But beware — advancing without unlocking the secret word 
+    in this stage may lead you to a path of certain doom!
+</p>
+
+{% endif %}
+{% endif %}
+
+{% endblock %}
